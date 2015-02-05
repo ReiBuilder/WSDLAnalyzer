@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions name="JzgZpGetAPIImplService" targetNamespace="http://impl.api.web.mdbservice.wisedu.com/" xmlns:ns1="http://ws.api.mdbservice.wisedu.com/" xmlns:ns2="http://schemas.xmlsoap.org/soap/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://impl.api.web.mdbservice.wisedu.com/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <wsdl:import location="http://172.16.206.32:8080/mdb_service_web/webservice/jzgZpGetAPI/getJzgZpByZgh?wsdl=JzgZpGetAPI.wsdl" namespace="http://ws.api.mdbservice.wisedu.com/">
+    </wsdl:import>
+  <wsdl:binding name="JzgZpGetAPIImplServiceSoapBinding" type="ns1:JzgZpGetAPI">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="GetJzgZpByZgh">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="GetJzgZpByZgh">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="GetJzgZpByZghResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="JzgZpGetAPIImplService">
+    <wsdl:port binding="tns:JzgZpGetAPIImplServiceSoapBinding" name="JzgZpGetAPIImplPort">
+      <soap:address location="http://172.16.206.32:8080/mdb_service_web/webservice/jzgZpGetAPI/getJzgZpByZgh"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

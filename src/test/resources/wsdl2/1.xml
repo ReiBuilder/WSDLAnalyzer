@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='utf-8'?><wsdl:definitions name="WebServiceRegisterAPIImplService" targetNamespace="http://impl.api.web.platform.service.wisedu.com/" xmlns:ns1="http://reg.api.platform.service.wisedu.com/" xmlns:ns2="http://schemas.xmlsoap.org/soap/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://impl.api.web.platform.service.wisedu.com/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <wsdl:import location="/Users/lblsloveryy/GitProject/WSDLAnalyzer/src/test/resources/wsdl2/2.xml" namespace="http://reg.api.platform.service.wisedu.com/">
+    </wsdl:import>
+  <wsdl:service name="WebServiceRegisterAPIImplService">
+    <wsdl:port binding="tns:WebServiceRegisterAPIImplServiceSoapBinding" name="WebServiceRegisterAPIImplPort">
+      <soap:address location="http://192.168.1.33:8081/webservice-api/webServiceRegisterAPI/regWebService"></soap:address>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
