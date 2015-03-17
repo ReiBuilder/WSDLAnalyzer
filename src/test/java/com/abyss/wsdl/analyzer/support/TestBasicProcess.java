@@ -1,5 +1,7 @@
 package com.abyss.wsdl.analyzer.support;
 
+import java.io.File;
+import java.io.FileWriter;
 import java.util.*;
 
 import java.io.IOException;
@@ -17,12 +19,13 @@ import javax.wsdl.WSDLException;
 import javax.wsdl.extensions.schema.Schema;
 import javax.wsdl.factory.WSDLFactory;
 import javax.wsdl.xml.WSDLReader;
+import javax.wsdl.xml.WSDLWriter;
+import javax.xml.namespace.QName;
 
+import com.ibm.wsdl.*;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-
-import com.ibm.wsdl.ImportImpl;
 
 import org.junit.Ignore;
 import org.junit.Test;
@@ -49,6 +52,8 @@ public class TestBasicProcess {
 
     private final List<WsdlFileSupport> wsdlFiles = new ArrayList<>();
 
+    private final String serviceName = "ServiceName";
+
     @Ignore("Temporary")
     @Test
     public void testCopyFolder() {
@@ -63,9 +68,9 @@ public class TestBasicProcess {
         }
     }
 
-    @Ignore("Temporary")
+//    @Ignore("Temporary")
     @Test
-    public void testGetNameSpace() throws WSDLException {
+    public void testGetNameSpace() throws WSDLException, IOException {
 //        String url = "http://172.16.206.32:8081/mdb_service_web/webservice/jzgJbxxQueryAPI/getJzgJbxxList?wsdl";
 //        String url2 = "http://msg.njau.edu.cn/message/services/ExtCommandService?wsdl";
 //        String url3 = "http://172.16.206.32:8080/mdb_service_web/webservice/jzgZpGetAPI/getJzgZpByZgh?wsdl";
@@ -76,11 +81,11 @@ public class TestBasicProcess {
 //        reader.setFeature("javax.wsdl.importDocuments", false);
 
 //        Definition def = reader.readWSDL(url2);
-        Definition def = getDefinitionInstanse("type");
+        Definition def = getDefinitionInstanse("service");
 
         String nameSpace = def.getTargetNamespace();
         System.out.println("targetNamespace is " + nameSpace);
-        /*
+
         Map<String, String> namespaceMap = def.getNamespaces();
 
 		Set<Map.Entry<String, String>> set = namespaceMap.entrySet();
@@ -99,7 +104,7 @@ public class TestBasicProcess {
                 .hasNext();) {
             Map.Entry<Object, Object> entry = (Map.Entry<Object, Object>) it
                     .next();
-//			System.out.println("the key:" + entry.getKey().getClass().getName());
+			System.out.println("the key:" + entry.getKey().getClass().getName());
             System.out.println("ServiceName : " + ((QName)entry.getKey()).getLocalPart());
             ServiceImpl serviceImpl = (ServiceImpl)entry.getValue();
 
@@ -113,17 +118,17 @@ public class TestBasicProcess {
                 Map.Entry<Object, Object> entry2 =
                         (Map.Entry<Object, Object>) it2.next();
                 System.out.println("the key:" + entry2.getKey());
-//				PortImpl port = (PortImpl)entry2.getValue();
+				PortImpl port = (PortImpl)entry2.getValue();
 
             }
 
 
         }
-        */
+
 
     }
 
-    private boolean setDefinitionMap(String url) throws WSDLException {
+    private boolean setDefinitionMap(String url) throws WSDLException, IOException {
 
         WSDLFactory factory = WSDLFactory.newInstance();
         WSDLReader reader = factory.newWSDLReader();
@@ -161,7 +166,7 @@ public class TestBasicProcess {
             wsdlFile.setId(id);
             wsdlFile.setParentId(parentId);
             wsdlFile.setDefFileContent(def);
-
+            wsdlFile.setFileContentTag(fillDefinitionMap(def));
 
             Map imports = def.getImports();
 
@@ -189,41 +194,189 @@ public class TestBasicProcess {
 
             wsdlFiles.add(wsdlFile);
 
-            fillDefinitionMap(def);
         }
+
+        modifyDefImportAndMakeFileName();//test
+
+        String path = "/Users/lblsloveryy/GitProject/WSDLAnalyzer/src/test/resources/temp";
+        writeProcessedWsdlToDisk(path);
 
         return checkDefinitionMap();
 
     }
 
-    private void fillDefinitionMap(Definition def)
+    private void modifyDefImportAndMakeFileName()
+    {
+        int length = wsdlFiles.size();
+
+        for(int i = 0; i < length; i++)
+        {
+            WsdlFileSupport temp = wsdlFiles.get(i);
+            if(temp.getDefFileType().equals(WsdlFileSupport.ROOT))
+            {
+                makeFileName(temp);
+            }
+            else
+            {
+                fileParentWsdFile(temp);
+            }
+        }
+
+        for(int i = 0; i < length; i++)
+        {
+            WsdlFileSupport temp = wsdlFiles.get(i);
+            modifyImport(temp);
+        }
+    }
+
+    private void fileParentWsdFile(WsdlFileSupport file)
+    {
+        String fileName = makeFileName(file);
+        WsdlFileSupport parent = getParentById(file.getParentId());
+        parent.getChildren().add(fileName);
+    }
+
+    private String makeFileName(WsdlFileSupport file)
+    {
+        String fileName = "";
+        fileName += serviceName + "_" + file.getFileContentTag() + "_" +
+                file.getDefFileType() + ".wsdl";
+        file.setFileName(fileName);
+        return fileName;
+    }
+
+    private void modifyImport(WsdlFileSupport temp)
+    {
+        Definition def = temp.getDefFileContent();
+        Map imports = def.getImports();
+        List<String> fileNames = temp.getChildren();
+        for (Object item : imports.entrySet())
+        {
+            Vector v = (Vector) ((Entry) item).getValue();
+            for(int i=0; i<v.size(); i++)
+            {
+                ImportImpl ii = (ImportImpl)v.get(i);
+                ii.setLocationURI(fileNames.get(i));
+            }
+        }
+    }
+
+    private WsdlFileSupport getParentById(int id)
+    {
+        int length = wsdlFiles.size();
+        for(int i = 0; i < length; i++)
+        {
+            WsdlFileSupport temp = wsdlFiles.get(i);
+            if(temp.getId() ==  id)
+            {
+                return temp;
+            }
+        }
+        return null;
+    }
+
+    private boolean writeProcessedWsdlToDisk(String path) throws IOException, WSDLException {
+        if(null == serviceName)
+        {
+            return false;
+        }
+        else
+        {
+            if(!path.endsWith(File.separator))
+            {
+                path += File.separator + serviceName;
+            }
+            else
+            {
+                path += serviceName;
+            }
+        }
+
+
+
+        for(int i = 0, j = wsdlFiles.size(); i < j ; i++) {
+            WsdlFileSupport temp = wsdlFiles.get(i);
+            String fileName = path + File.separator + temp.getFileName();
+            if(!makeDirsForFile(fileName))
+            {
+                return false;
+            }
+            File f = new File(fileName);
+            WSDLFactory factory = WSDLFactory.newInstance();
+            FileWriter fw = new FileWriter(f);
+            WSDLWriter writer = factory.newWSDLWriter();
+            writer.writeWSDL(temp.getDefFileContent(), fw);
+            fw.close();
+        }
+        return true;
+    }
+
+    public static boolean makeDirsForFile(String fileName){
+        boolean ret = true;
+        File file = new File(fileName);
+        File parent = file.getParentFile();
+        if(parent!=null&&!parent.exists()){
+            ret = parent.mkdirs();
+        }
+        return ret;
+    }
+
+    private String fillDefinitionMap(Definition def)
             throws WSDLException {
 
+        String contentTag = "";
 
-        Object temp = def.getBindings();
-        if (null != temp) {
+        int size1 = 0;
+        Map<QName,BindingImpl> temp1 = def.getAllBindings();
+        for ( Object item : temp1.entrySet()) {
+            Entry test = (Entry<QName,BindingImpl>)item;
+            BindingImpl test2 = (BindingImpl)test.getValue();
+            size1 = test2.getBindingOperations().size();
+        }
+        if (null != temp1 && size1 > 0) {
             definitionMap.put(BINDING, def);
+            contentTag += "b";
         }
 
-        temp = def.getMessages();
-        if (null != temp) {
+        Map temp2 = def.getMessages();
+        int size2 = temp2.entrySet().size();
+        if (null != temp2 && size2 > 0) {
             definitionMap.put(MESSAGE, def);
+            contentTag += "m";
         }
 
-        temp = def.getServices();
-        if (null != temp) {
+        Map temp3 = def.getServices();
+        int size3 = temp3.entrySet().size();
+        if (null != temp3 && size3 > 0) {
             definitionMap.put(SERVICE, def);
+            contentTag += "s";
         }
 
-        temp = def.getAllPortTypes();
-        if (null != temp) {
+        Map<String, PortType> temp4 = def.getPortTypes();
+        Message massage = null;
+        for (Map.Entry<String, PortType> entryPortType : temp4.entrySet()) {
+            PortType portType = (PortType)entryPortType.getValue();
+            List<Operation> operations = portType.getOperations();
+            for (int i = 0; i < operations.size(); i++) {
+                Input tempIn = operations.get(i).getInput();
+                massage = tempIn.getMessage();
+                break;
+            }
+            break;
+        }
+        int size4 = temp4.entrySet().size();
+        if (null != temp4 && size4 > 0 && null != massage) {
             definitionMap.put(PORTTYPE, def);
+            contentTag += "p";
         }
 
-        temp = def.getTypes();
-        if (null != temp) {
+        Types temp5 = def.getTypes();
+        if (null != temp5) {
             definitionMap.put(TYPE, def);
+            contentTag += "t";
         }
+
+        return contentTag;
     }
 
     private boolean checkDefinitionMap() {
@@ -236,7 +389,7 @@ public class TestBasicProcess {
     }
 
 
-    private Definition getDefinitionInstanse(String type) throws WSDLException {
+    private Definition getDefinitionInstanse(String type) throws WSDLException, IOException {
 
         String url = "http://172.16.206.32:8080/mdb_service_web/webservice/jzgZpGetAPI/getJzgZpByZgh?wsdl";
 
@@ -244,7 +397,7 @@ public class TestBasicProcess {
         String first = path + "/getJzgZpByZgh-root.xml";// condition
         String second = path + "/getJzgZpByZgh.xml";
         String third = path + "/ExtCommandService.xml";
-        String fourth = path + "/regWebService.xml";
+        String fourth = path + "/root.xml";
 
         WSDLFactory factory = WSDLFactory.newInstance();
         WSDLReader reader = factory.newWSDLReader();
@@ -275,10 +428,10 @@ public class TestBasicProcess {
         }
     }
 
-    //    @Ignore("Temporary")
+    @Ignore("Temporary")
     @Test
     public void testGetTypes() throws WSDLException, NoSuchFieldException,
-            SecurityException {
+            SecurityException, IOException {
         List<Node> elementList = new ArrayList<Node>();
         List<Node> typeList = new ArrayList<Node>();
         List<ClassProperty> cpList = new ArrayList<ClassProperty>();
@@ -321,22 +474,22 @@ public class TestBasicProcess {
                 }
             }
 
-            System.out.println("the size of elementList is "
-                    + elementList.size());
-            // to every element node, do the traverse
+//            System.out.println("the size of elementList is "
+//                    + elementList.size());
+
             for (Node node : elementList) {
                 makeClassPropertyObject_New(node, typeList, cpList, baseType);
             }
 
-            System.out.println("the size of cpList is " + cpList.size());
-
-            for (ClassProperty node : cpList) {
-                System.out.println("the " + node.getId() + " is "
-                        + node.getParamName() + ". its owner_id is "
-                        + node.getOwnerId() + ". its typeName is "
-                        + node.getTypeName() + ". its className is "
-                        + node.getClassName() + ".");
-            }
+//            System.out.println("the size of cpList is " + cpList.size());
+//
+//            for (ClassProperty node : cpList) {
+//                System.out.println("the " + node.getId() + " is "
+//                        + node.getParamName() + ". its owner_id is "
+//                        + node.getOwnerId() + ". its typeName is "
+//                        + node.getTypeName() + ". its className is "
+//                        + node.getClassName() + ".");
+//            }
         }
     }
 
@@ -672,7 +825,7 @@ public class TestBasicProcess {
 
     @Ignore("Temporary")
     @Test
-    public void testGetOperationNameAndParamType() throws WSDLException {
+    public void testGetOperationNameAndParamType() throws WSDLException, IOException {
         Definition def = getDefinitionInstanse("second");
 
         Map<String, PortType> portTypes = def.getPortTypes();
@@ -952,6 +1105,7 @@ public class TestBasicProcess {
 
         private String fileContentTag;
 
+        private String fileName;
 
         private Definition defFileContent;
 
@@ -959,7 +1113,7 @@ public class TestBasicProcess {
 
         private int parentId;
 
-        private final List<Integer> children = new ArrayList<>();
+        private final List<String> children = new ArrayList<>();
 
         public String getDefFileType() {
             return defFileType;
@@ -967,6 +1121,22 @@ public class TestBasicProcess {
 
         public void setDefFileType(String defFileType) {
             this.defFileType = defFileType;
+        }
+
+        public String getFileContentTag() {
+            return fileContentTag;
+        }
+
+        public void setFileContentTag(String fileContentTag) {
+            this.fileContentTag = fileContentTag;
+        }
+
+        public String getFileName() {
+            return fileName;
+        }
+
+        public void setFileName(String fileName) {
+            this.fileName = fileName;
         }
 
         public Definition getDefFileContent() {
@@ -993,16 +1163,8 @@ public class TestBasicProcess {
             this.parentId = parentId;
         }
 
-        public List<Integer> getChildren() {
+        public List<String> getChildren() {
             return children;
-        }
-
-        public String getFileContentTag() {
-            return fileContentTag;
-        }
-
-        public void setFileContentTag(String fileContentTag) {
-            this.fileContentTag = fileContentTag;
         }
     }
 }

@@ -1,5 +1,6 @@
 package com.abyss.wsdl.analyzer.support;
 
+import javax.wsdl.Definition;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,26 +9,23 @@ import java.util.List;
  */
 public class WsdlFileSupport {
 
-    private static final String ROOT = "root";
-    private static final String LEAF = "leaf";
-    private static final String STEM = "stem";
+    public static final String ROOT = "root";
+    public static final String LEAF = "leaf";
+    public static final String STEM = "stem";
 
     private String defFileType;
 
-    private String defFileContent;
+    private String fileContentTag;
 
-    private int ids;
+    private String fileName;
+
+    private Definition defFileContent;
+
+    private int id;
 
     private int parentId;
 
-    private final List<Integer> children = new ArrayList<>();
-
-    //region est
-    public List<Integer> getChildren() {
-
-
-        return children;
-    }
+    private final List<String> children = new ArrayList<>();
 
     public String getDefFileType() {
         return defFileType;
@@ -37,20 +35,36 @@ public class WsdlFileSupport {
         this.defFileType = defFileType;
     }
 
-    public String getDefFileContent() {
+    public String getFileContentTag() {
+        return fileContentTag;
+    }
+
+    public void setFileContentTag(String fileContentTag) {
+        this.fileContentTag = fileContentTag;
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+
+    public Definition getDefFileContent() {
         return defFileContent;
     }
 
-    public void setDefFileContent(String defFileContent) {
+    public void setDefFileContent(Definition defFileContent) {
         this.defFileContent = defFileContent;
     }
 
-    public int getIds() {
-        return ids;
+    public int getId() {
+        return id;
     }
 
-    public void setIds(int ids) {
-        this.ids = ids;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getParentId() {
@@ -60,5 +74,8 @@ public class WsdlFileSupport {
     public void setParentId(int parentId) {
         this.parentId = parentId;
     }
-    //endregion
+
+    public List<String> getChildren() {
+        return children;
+    }
 }

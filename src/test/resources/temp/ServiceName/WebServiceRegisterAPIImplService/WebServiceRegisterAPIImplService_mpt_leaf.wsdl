@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="WebServiceRegisterAPI" targetNamespace="http://reg.api.platform.service.wisedu.com/" xmlns:ns1="http://reg.api.platform.service.wisedu.com/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <wsdl:types>
+    <xs:schema elementFormDefault="unqualified" targetNamespace="http://reg.api.platform.service.wisedu.com/" version="1.0" xmlns:tns="http://reg.api.platform.service.wisedu.com/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:element name="GetRegWebServiceDetailByAppId" type="tns:GetRegWebServiceDetailByAppId"/>
+<xs:element name="GetRegWebServiceDetailByAppIdResponse" type="tns:GetRegWebServiceDetailByAppIdResponse"/>
+<xs:element name="GetRegWebServiceDetailByIds" type="tns:GetRegWebServiceDetailByIds"/>
+<xs:element name="GetRegWebServiceDetailByIdsResponse" type="tns:GetRegWebServiceDetailByIdsResponse"/>
+<xs:element name="RegWebService" type="tns:RegWebService"/>
+<xs:element name="RegWebServiceResponse" type="tns:RegWebServiceResponse"/>
+<xs:complexType name="RegWebService">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="regWebServiceRequest" type="tns:regWebServiceRequest"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="regWebServiceRequest">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="appInfo" type="tns:appInfo"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="webServiceInfos" nillable="true" type="tns:webServiceInfo"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="appInfo">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="appId" type="xs:string"/>
+      <xs:element minOccurs="0" name="description" type="xs:string"/>
+      <xs:element minOccurs="0" name="email" type="xs:string"/>
+      <xs:element minOccurs="0" name="phone" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="webServiceInfo">
+    <xs:sequence>
+      <xs:element name="catch" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="catchTime" type="xs:string"/>
+      <xs:element minOccurs="0" name="developerEmail" type="xs:string"/>
+      <xs:element minOccurs="0" name="developerId" type="xs:string"/>
+      <xs:element minOccurs="0" name="developerName" type="xs:string"/>
+      <xs:element minOccurs="0" name="serviceDescription" type="xs:string"/>
+      <xs:element name="trafficLimint" type="xs:int"/>
+      <xs:element minOccurs="0" name="webServiceAddr" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="RegWebServiceResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="RegWebServiceResponse" type="tns:regWebServiceResponse"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="regWebServiceResponse">
+    <xs:complexContent>
+      <xs:extension base="tns:commonResponse">
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="serviceIds" nillable="true" type="xs:int"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+<xs:complexType name="commonResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="logId" type="xs:string"/>
+      <xs:element minOccurs="0" name="msg" type="xs:string"/>
+      <xs:element name="status" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="GetRegWebServiceDetailByAppId">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="getRegDetailByAppIdRequest" type="tns:getRegDetailByAppIdRequest"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="getRegDetailByAppIdRequest">
+    <xs:complexContent>
+      <xs:extension base="tns:commonRequest">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="appId" type="xs:string"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+<xs:complexType name="commonRequest">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="logId" type="xs:string"/>
+      <xs:element minOccurs="0" name="page" type="tns:page"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="page">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="order" type="xs:string"/>
+      <xs:element minOccurs="0" name="orderBy" type="xs:string"/>
+      <xs:element minOccurs="0" name="pageNo" type="xs:int"/>
+      <xs:element minOccurs="0" name="pageSize" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="GetRegWebServiceDetailByAppIdResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="GetRegDetailResponse" type="tns:getRegDetailResponse"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="getRegDetailResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="page" type="tns:page"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="webServiceRegDetails" nillable="true" type="tns:webServiceRegDetail"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="webServiceRegDetail">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="appId" type="xs:string"/>
+      <xs:element minOccurs="0" name="auditRemark" type="xs:string"/>
+      <xs:element minOccurs="0" name="auditStatus" type="xs:string"/>
+      <xs:element minOccurs="0" name="esbProxyAddr" type="xs:string"/>
+      <xs:element minOccurs="0" name="serviceDescription" type="xs:string"/>
+      <xs:element name="serviceId" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="GetRegWebServiceDetailByIds">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="getRegDetailByIdsRequest" type="tns:getRegDetailByIdsRequest"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="getRegDetailByIdsRequest">
+    <xs:complexContent>
+      <xs:extension base="tns:commonRequest">
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="serviceIds" nillable="true" type="xs:int"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+<xs:complexType name="GetRegWebServiceDetailByIdsResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="GetRegDetailResponse" type="tns:getRegDetailResponse"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="GetRegWebServiceDetailByIds">
+    <wsdl:part name="parameters" element="ns1:GetRegWebServiceDetailByIds">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="RegWebServiceResponse">
+    <wsdl:part name="parameters" element="ns1:RegWebServiceResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="GetRegWebServiceDetailByAppId">
+    <wsdl:part name="parameters" element="ns1:GetRegWebServiceDetailByAppId">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="GetRegWebServiceDetailByIdsResponse">
+    <wsdl:part name="parameters" element="ns1:GetRegWebServiceDetailByIdsResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="RegWebService">
+    <wsdl:part name="parameters" element="ns1:RegWebService">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="GetRegWebServiceDetailByAppIdResponse">
+    <wsdl:part name="parameters" element="ns1:GetRegWebServiceDetailByAppIdResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="WebServiceRegisterAPI">
+    <wsdl:operation name="RegWebService">
+      <wsdl:input name="RegWebService" message="ns1:RegWebService">
+    </wsdl:input>
+      <wsdl:output name="RegWebServiceResponse" message="ns1:RegWebServiceResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRegWebServiceDetailByAppId">
+      <wsdl:input name="GetRegWebServiceDetailByAppId" message="ns1:GetRegWebServiceDetailByAppId">
+    </wsdl:input>
+      <wsdl:output name="GetRegWebServiceDetailByAppIdResponse" message="ns1:GetRegWebServiceDetailByAppIdResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRegWebServiceDetailByIds">
+      <wsdl:input name="GetRegWebServiceDetailByIds" message="ns1:GetRegWebServiceDetailByIds">
+    </wsdl:input>
+      <wsdl:output name="GetRegWebServiceDetailByIdsResponse" message="ns1:GetRegWebServiceDetailByIdsResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+</wsdl:definitions>

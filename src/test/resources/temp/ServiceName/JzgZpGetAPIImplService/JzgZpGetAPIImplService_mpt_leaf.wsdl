@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="JzgZpGetAPI" targetNamespace="http://ws.api.mdbservice.wisedu.com/" xmlns:ns1="http://ws.api.mdbservice.wisedu.com/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <wsdl:types>
+    <xs:schema elementFormDefault="unqualified" targetNamespace="http://ws.api.mdbservice.wisedu.com/" version="1.0" xmlns:tns="http://ws.api.mdbservice.wisedu.com/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:element name="GetJzgZpByZgh" type="tns:GetJzgZpByZgh"/>
+<xs:element name="GetJzgZpByZghResponse" type="tns:GetJzgZpByZghResponse"/>
+<xs:complexType name="GetJzgZpByZgh">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="jzgZghRequest" type="tns:jzgZghRequest"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="jzgZghRequest">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="commonrequest" type="tns:commonRequest"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="needItems" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="zgh" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="commonRequest">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="appId" type="xs:string"/>
+      <xs:element minOccurs="0" name="logId" type="xs:string"/>
+      <xs:element minOccurs="0" name="optUser" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="GetJzgZpByZghResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CommonResponse" type="tns:jzgZpResponse"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="jzgZpResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="commonResponse" type="tns:commonResponse"/>
+      <xs:element minOccurs="0" name="zpTest" type="tns:zpTest"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="commonResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="appId" type="xs:string"/>
+      <xs:element minOccurs="0" name="logId" type="xs:string"/>
+      <xs:element minOccurs="0" name="msg" type="xs:string"/>
+      <xs:element name="status" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="zpTest">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="wid" type="xs:string"/>
+      <xs:element minOccurs="0" name="zgh" type="xs:string"/>
+      <xs:element minOccurs="0" name="zp" type="xs:base64Binary"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="GetJzgZpByZgh">
+    <wsdl:part name="parameters" element="ns1:GetJzgZpByZgh">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="GetJzgZpByZghResponse">
+    <wsdl:part name="parameters" element="ns1:GetJzgZpByZghResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="JzgZpGetAPI">
+    <wsdl:operation name="GetJzgZpByZgh">
+      <wsdl:input name="GetJzgZpByZgh" message="ns1:GetJzgZpByZgh">
+    </wsdl:input>
+      <wsdl:output name="GetJzgZpByZghResponse" message="ns1:GetJzgZpByZghResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+</wsdl:definitions>

@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://service.message.wiscom.com" xmlns:soapenc12="http://www.w3.org/2003/05/soap-encoding" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://service.message.wiscom.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap11="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc11="http://schemas.xmlsoap.org/soap/encoding/" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
+  <wsdl:types>
+    <xsd:schema attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://service.message.wiscom.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<xsd:complexType name="ArrayOfString">
+<xsd:sequence>
+<xsd:element maxOccurs="unbounded" minOccurs="0" name="string" nillable="true" type="xsd:string"/>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:element name="createMessage">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element maxOccurs="1" minOccurs="1" name="in0" nillable="true" type="tns:ArrayOfString"/>
+<xsd:element maxOccurs="1" minOccurs="1" name="in1" nillable="true" type="xsd:string"/>
+<xsd:element maxOccurs="1" minOccurs="1" name="in2" nillable="true" type="xsd:string"/>
+<xsd:element maxOccurs="1" minOccurs="1" name="in3" nillable="true" type="xsd:string"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="createMessageResponse">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element maxOccurs="1" minOccurs="1" name="out" nillable="true" type="xsd:long"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="simpleCreateMessageWithSourceAddr">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element maxOccurs="1" minOccurs="1" name="in0" nillable="true" type="xsd:string"/>
+<xsd:element maxOccurs="1" minOccurs="1" name="in1" nillable="true" type="tns:ArrayOfString"/>
+<xsd:element maxOccurs="1" minOccurs="1" name="in2" nillable="true" type="xsd:string"/>
+<xsd:element maxOccurs="1" minOccurs="1" name="in3" nillable="true" type="xsd:string"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="simpleCreateMessageWithSourceAddrResponse">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element maxOccurs="1" minOccurs="1" name="out" nillable="true" type="xsd:long"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="createMessageWithSendType">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element maxOccurs="1" minOccurs="1" name="in0" nillable="true" type="xsd:string"/>
+<xsd:element maxOccurs="1" minOccurs="1" name="in1" nillable="true" type="tns:ArrayOfString"/>
+<xsd:element maxOccurs="1" minOccurs="1" name="in2" nillable="true" type="xsd:string"/>
+<xsd:element maxOccurs="1" minOccurs="1" name="in3" nillable="true" type="xsd:string"/>
+<xsd:element maxOccurs="1" minOccurs="1" name="in4" nillable="true" type="tns:ArrayOfString"/>
+<xsd:element maxOccurs="1" minOccurs="1" name="in5" type="xsd:boolean"/>
+<xsd:element maxOccurs="1" minOccurs="1" name="in6" nillable="true" type="xsd:string"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="createMessageWithSendTypeResponse">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element maxOccurs="1" minOccurs="1" name="out" nillable="true" type="xsd:long"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="simpleCreateMessage">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element maxOccurs="1" minOccurs="1" name="in0" nillable="true" type="tns:ArrayOfString"/>
+<xsd:element maxOccurs="1" minOccurs="1" name="in1" nillable="true" type="xsd:string"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="simpleCreateMessageResponse">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element maxOccurs="1" minOccurs="1" name="out" nillable="true" type="xsd:long"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="simpleCreateMessageWithMobile">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element maxOccurs="1" minOccurs="1" name="in0" nillable="true" type="xsd:string"/>
+<xsd:element maxOccurs="1" minOccurs="1" name="in1" nillable="true" type="xsd:string"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="simpleCreateMessageWithMobileResponse">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element maxOccurs="1" minOccurs="1" name="out" nillable="true" type="xsd:long"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="createMessageWithSourceAddr">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element maxOccurs="1" minOccurs="1" name="in0" nillable="true" type="xsd:string"/>
+<xsd:element maxOccurs="1" minOccurs="1" name="in1" nillable="true" type="xsd:string"/>
+<xsd:element maxOccurs="1" minOccurs="1" name="in2" nillable="true" type="tns:ArrayOfString"/>
+<xsd:element maxOccurs="1" minOccurs="1" name="in3" nillable="true" type="xsd:string"/>
+<xsd:element maxOccurs="1" minOccurs="1" name="in4" nillable="true" type="xsd:string"/>
+<xsd:element maxOccurs="1" minOccurs="1" name="in5" nillable="true" type="tns:ArrayOfString"/>
+<xsd:element maxOccurs="1" minOccurs="1" name="in6" type="xsd:boolean"/>
+<xsd:element maxOccurs="1" minOccurs="1" name="in7" nillable="true" type="xsd:string"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="createMessageWithSourceAddrResponse">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element maxOccurs="1" minOccurs="1" name="out" nillable="true" type="xsd:long"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="createMessageWithMobile">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element maxOccurs="1" minOccurs="1" name="in0" nillable="true" type="xsd:string"/>
+<xsd:element maxOccurs="1" minOccurs="1" name="in1" nillable="true" type="xsd:string"/>
+<xsd:element maxOccurs="1" minOccurs="1" name="in2" nillable="true" type="xsd:string"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="createMessageWithMobileResponse">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element maxOccurs="1" minOccurs="1" name="out" nillable="true" type="xsd:long"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="createMo">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element maxOccurs="1" minOccurs="1" name="in0" nillable="true" type="xsd:string"/>
+<xsd:element maxOccurs="1" minOccurs="1" name="in1" nillable="true" type="xsd:string"/>
+<xsd:element maxOccurs="1" minOccurs="1" name="in2" nillable="true" type="xsd:string"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="createMoResponse">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element maxOccurs="1" minOccurs="1" name="out" nillable="true" type="xsd:long"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+</xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="createMoRequest">
+    <wsdl:part name="parameters" element="tns:createMo">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="createMessageWithMobileRequest">
+    <wsdl:part name="parameters" element="tns:createMessageWithMobile">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="createMessageWithMobileResponse">
+    <wsdl:part name="parameters" element="tns:createMessageWithMobileResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="createMessageWithSourceAddrResponse">
+    <wsdl:part name="parameters" element="tns:createMessageWithSourceAddrResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="createMessageResponse">
+    <wsdl:part name="parameters" element="tns:createMessageResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="simpleCreateMessageResponse">
+    <wsdl:part name="parameters" element="tns:simpleCreateMessageResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="createMessageWithSendTypeResponse">
+    <wsdl:part name="parameters" element="tns:createMessageWithSendTypeResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="createMoResponse">
+    <wsdl:part name="parameters" element="tns:createMoResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="simpleCreateMessageRequest">
+    <wsdl:part name="parameters" element="tns:simpleCreateMessage">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="createMessageWithSendTypeRequest">
+    <wsdl:part name="parameters" element="tns:createMessageWithSendType">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="simpleCreateMessageWithMobileRequest">
+    <wsdl:part name="parameters" element="tns:simpleCreateMessageWithMobile">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="createMessageWithSourceAddrRequest">
+    <wsdl:part name="parameters" element="tns:createMessageWithSourceAddr">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="simpleCreateMessageWithSourceAddrResponse">
+    <wsdl:part name="parameters" element="tns:simpleCreateMessageWithSourceAddrResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="simpleCreateMessageWithSourceAddrRequest">
+    <wsdl:part name="parameters" element="tns:simpleCreateMessageWithSourceAddr">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="simpleCreateMessageWithMobileResponse">
+    <wsdl:part name="parameters" element="tns:simpleCreateMessageWithMobileResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="createMessageRequest">
+    <wsdl:part name="parameters" element="tns:createMessage">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="ExtCommandServicePortType">
+    <wsdl:operation name="createMessage">
+      <wsdl:input name="createMessageRequest" message="tns:createMessageRequest">
+    </wsdl:input>
+      <wsdl:output name="createMessageResponse" message="tns:createMessageResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="simpleCreateMessageWithSourceAddr">
+      <wsdl:input name="simpleCreateMessageWithSourceAddrRequest" message="tns:simpleCreateMessageWithSourceAddrRequest">
+    </wsdl:input>
+      <wsdl:output name="simpleCreateMessageWithSourceAddrResponse" message="tns:simpleCreateMessageWithSourceAddrResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="createMessageWithSendType">
+      <wsdl:input name="createMessageWithSendTypeRequest" message="tns:createMessageWithSendTypeRequest">
+    </wsdl:input>
+      <wsdl:output name="createMessageWithSendTypeResponse" message="tns:createMessageWithSendTypeResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="simpleCreateMessage">
+      <wsdl:input name="simpleCreateMessageRequest" message="tns:simpleCreateMessageRequest">
+    </wsdl:input>
+      <wsdl:output name="simpleCreateMessageResponse" message="tns:simpleCreateMessageResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="simpleCreateMessageWithMobile">
+      <wsdl:input name="simpleCreateMessageWithMobileRequest" message="tns:simpleCreateMessageWithMobileRequest">
+    </wsdl:input>
+      <wsdl:output name="simpleCreateMessageWithMobileResponse" message="tns:simpleCreateMessageWithMobileResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="createMessageWithSourceAddr">
+      <wsdl:input name="createMessageWithSourceAddrRequest" message="tns:createMessageWithSourceAddrRequest">
+    </wsdl:input>
+      <wsdl:output name="createMessageWithSourceAddrResponse" message="tns:createMessageWithSourceAddrResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="createMessageWithMobile">
+      <wsdl:input name="createMessageWithMobileRequest" message="tns:createMessageWithMobileRequest">
+    </wsdl:input>
+      <wsdl:output name="createMessageWithMobileResponse" message="tns:createMessageWithMobileResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="createMo">
+      <wsdl:input name="createMoRequest" message="tns:createMoRequest">
+    </wsdl:input>
+      <wsdl:output name="createMoResponse" message="tns:createMoResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ExtCommandServiceHttpBinding" type="tns:ExtCommandServicePortType">
+    <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="createMessage">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="createMessageRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="createMessageResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="simpleCreateMessageWithSourceAddr">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="simpleCreateMessageWithSourceAddrRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="simpleCreateMessageWithSourceAddrResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="createMessageWithSendType">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="createMessageWithSendTypeRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="createMessageWithSendTypeResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="simpleCreateMessage">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="simpleCreateMessageRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="simpleCreateMessageResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="simpleCreateMessageWithMobile">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="simpleCreateMessageWithMobileRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="simpleCreateMessageWithMobileResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="createMessageWithSourceAddr">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="createMessageWithSourceAddrRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="createMessageWithSourceAddrResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="createMessageWithMobile">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="createMessageWithMobileRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="createMessageWithMobileResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="createMo">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="createMoRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="createMoResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ExtCommandService">
+    <wsdl:port name="ExtCommandServiceHttpPort" binding="tns:ExtCommandServiceHttpBinding">
+      <wsdlsoap:address location="http://msg.njau.edu.cn/message/services/ExtCommandService"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
