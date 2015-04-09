@@ -359,8 +359,25 @@ public class BasicProcess {
 
         service.setId(1);//prepare for multiple threads word
 
-        String nameSpace = def.getTargetNamespace();
-        service.setTargetNameSpace(nameSpace);
+        String targetNameSpace = def.getTargetNamespace();
+        service.setTargetNameSpace(targetNameSpace);
+
+        String nameSpace = null;
+        Map<String,String> nameSpaces = def.getNamespaces();
+        for ( Object item : nameSpaces.entrySet()) {
+            Map.Entry itemObject = (Map.Entry<String,String>)item;
+            String key = (String)itemObject.getKey();
+            if(key.equals("ns1"))
+            {
+                nameSpace = (String)itemObject.getValue();
+                service.setNameSpace(nameSpace);
+                break;
+            }
+        }
+        if(null == nameSpace)
+        {
+            service.setNameSpace(targetNameSpace);
+        }
 
         Map<Object, Object> serviceMap = def.getServices();
         Set<Map.Entry<Object, Object>> set1 = serviceMap.entrySet();

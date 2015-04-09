@@ -9,6 +9,7 @@ public class Service {
 
     private String serviceName;
     private String targetNameSpace;
+    private String nameSpace;
     private String portName;
     private int id;
     private List<Integer> OperationList;
@@ -51,5 +52,13 @@ public class Service {
 
     public void setPortName(String portName) {
         this.portName = portName;
+    }
+
+    public String getNameSpace() {
+        return nameSpace;
+    }
+
+    public void setNameSpace(String nameSpace) {
+        this.nameSpace = nameSpace;
     }
 }
